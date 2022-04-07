@@ -6,7 +6,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 require('./scrapper')
 require('./controllers/banController')(app)
-const Data = require('./models/user');
+const Data = require('./models/data');
 const summary = require('./axiosSettings')
 const ipJson = require('./ips.json')
 
