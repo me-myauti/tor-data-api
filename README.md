@@ -8,7 +8,6 @@
 $ git clone https://github.com/me-myauti/tor-data-api
 $ cd tor-data-api
 $ npm install
-$ node scrapper.js
 $ npm start
 ```
 ## Utilização
