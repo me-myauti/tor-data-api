@@ -16,6 +16,14 @@ _Para a utilização funcional da API, é necessário algumas configurações e 
 * Utilizar Mongo como banco, uma vez que a API cria o Schema e trabalha com a inserção e coleta de dados voltados para o MongoDB
 * Definir sua string de conexão com seu banco de dados em database\index.js
 * Para o endpoint post, localizado em controllers\banController.js configure o seu redirecionamento para a porta em que seu client-side está rodando. (Por padrão, é utilizado o localhost:3000)
+* O arquivo "ips.json" por padrão possui apenas um dado simbólico
+  ```
+    [
+       {
+          "ip": "There's no IPs yet"
+       }
+     ]
+  ```
 
 # Endpoints
 * **GET** ```/listIps```
