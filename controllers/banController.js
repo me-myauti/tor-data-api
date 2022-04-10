@@ -11,7 +11,7 @@ router.post('/register', async(req,res) => {
             return res.sendStatus(405)
         }
         Data.create(req.body)
-        return res.redirect('http://localhost:3000/')
+        return res.redirect('http://localhost:8080/')
     } catch (error) {
         return res.status(400).send({error: 'Registration failed'});
     }
