@@ -10,12 +10,24 @@ $ cd tor-data-api
 $ npm install
 $ npm start
 ```
+* Caso queira utilizar junto ao docker:
+    * É preferível que se utilize da versão >= 20
+    ```
+        $ docker build -t tor-api .
+        $ docker run --name tor-data-api-container -d -p 8080:8080 -p 8000:8000 tor-api
+    ```
+    * Após a criação da imagem e do docker run, verifique se o container subiu corretamente.
+    ```
+        $ docker ps
+    ```
+    * Se tudo estiver funcionando, acesse ```localhost/8080``` para acessar o lado do client
+    * Para visualizar os dados entregues pela API, acesse a rota ```localhost/8000``` em uma das endpoints listadas abaixo.
 ## Utilização
 _Para a utilização funcional da API, é necessário algumas configurações e exigências._
 
 * Utilizar Mongo como banco, uma vez que a API cria o Schema e trabalha com a inserção e coleta de dados voltados para o MongoDB
 * Definir sua string de conexão com seu banco de dados em database\index.js
-* Para o endpoint post, localizado em controllers\banController.js configure o seu redirecionamento para a porta em que seu client-side está rodando. (Por padrão, é utilizado o localhost:3000)
+* Para o endpoint post, localizado em controllers\banController.js configure o seu redirecionamento para a porta em que seu cliente está rodando. (Por padrão, é utilizado o localhost:8080)
 * O arquivo "ips.json" por padrão possui apenas um dado simbólico
   ```
     [
