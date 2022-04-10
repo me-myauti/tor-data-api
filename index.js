@@ -24,50 +24,51 @@ async function getData(){
         }
     })
 
-
     return {
         onion: onionData,
         tornodes: tornodeData
     }
 }
 
+const PORT = 8000
 
-app.listen(8000, ()=>{
-    app.get('/listIps', async(req,res) => {
-        try{
-            return res.send(await getData())
-        }catch(error){
-            console.log(error)
-        }
-    })
+app.listen(PORT, '0.0.0.0')
+
+app.get('/listIps', async(req,res) => {
+    try{
+        return res.send(await getData())
+    }catch(error){
+        console.log(error)
+     }
+ })
 
 
-    app.get('/listBannedIps', async(req,res) =>{
-        try {
-            const bannedIps = (await Data.find()).map((item)=>{
-                return item.ip
-            })
+app.get('/listBannedIps', async(req,res) =>{
+     try {
+        const bannedIps = (await Data.find()).map((item)=>{
+            return item.ip
+        })
 
-            const data = await getData()
-            const filteredOnion = data.onion.filter((item)=>{
-                return item.filter((ip)=>{
-                    return !bannedIps.includes(ip)
-                }).length
-            })
+        const data = await getData()
+        const filteredOnion = data.onion.filter((item)=>{
+            return item.filter((ip)=>{
+                return !bannedIps.includes(ip)
+            }).length
+        })
 
-            const filteredTornodes = data.tornodes.filter((item)=>{
-                return !bannedIps.includes(item)
-            })
+        const filteredTornodes = data.tornodes.filter((item)=>{
+            return !bannedIps.includes(item)
+        })
 
-            return res.send({
-                onion: filteredOnion,
-                tornodes: filteredTornodes
-            })
+        return res.send({
+            onion: filteredOnion,
+            tornodes: filteredTornodes
+        })
 
-        } catch (error) {
-            console.log(error)
-            return res.status(400).send({error: 'Error'})
-        }
-    })
-});
+    } catch (error) {
+        console.log(error)
+        return res.status(400).send({error: 'Error'})
+    }
+})
+
 
