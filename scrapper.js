@@ -23,29 +23,35 @@ var path = "./ips.json";
     })
   
     try{
-        fs.accessSync(path, fs.constants.F_OK)
-        fs.writeFile('ips.json', JSON.stringify(ipList, null, 2), err => {
-            if(err)throw new Error('Could not create json file!')
-           console.log('Created ips.json')
-         })
-
+        fs.access(path, fs.constants.F_OK, (err) =>{
+          if(err){
+            fs.writeFile('ips.json', JSON.stringify(ipList, null, 2), err => {
+              if(err)throw new Error('Could not create json file!')
+            console.log('Created ips.json')
+            })
+          }
+        })
     }catch(error){
         fs.writeFile('ips.json', JSON.stringify(ipList, null, 2), err => {
             if(err)throw new Error('Could not create json file!')
-           console.log('Created ips.json')
+          console.log('Created ips.json')
          })
     }
   }else{
     const defaultData = [{ip: "Theres no ips yet"}]
     try {
-        fs.accessSync(path, fs.constants.F_OK);
-    }catch (error) {
-        fs.writeFile('ips.json', JSON.stringify(defaultData, null, 2), err => {
-            if(err)throw new Error('Could not create json file!')
-           console.log('Created ips.json')
-         })
-    }
-    console.log('Error rewriting list of ips: You need to wait 30 minutes until the next request\n You should check your ips.json file instead')
+          fs.access(path, fs.constants.F_OK, (err)=>{
+            if(err){
+              fs.writeFile('ips.json', JSON.stringify(defaultData, null, 2), err => {
+                if(err)throw new Error('Could not create json file!')
+                console.log('Created ips.json')
+              })
+            }
+          });
+    }catch(error){
+        console.log('your file already exists')
+      }
+      console.log('Error rewriting list of ips: You need to wait 30 minutes until the next request\n You should check your ips.json file instead')
   }
   await browser.close();
 })();
